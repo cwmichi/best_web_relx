@@ -1,0 +1,74 @@
+.TH SSH 7 "ssh 4.0" "Ericsson AB" "Erlang Application Definition"
+.SH NAME
+SSH \- The ssh application implements the Secure Shell (SSH) protocol and
+  provides an SSH File Transfer Protocol (SFTP) client and server.
+.SH DESCRIPTION
+.LP
+The \fIssh\fR\& application is an implementation of the SSH protocol in Erlang\&. \fIssh\fR\& offers API functions to write customized SSH clients and servers as well as making the Erlang shell available over SSH\&. An SFTP client, \fIssh_sftp\fR\&, and server, \fIssh_sftpd\fR\&, are also included\&.
+.SH "DEPENDENCIES"
+
+.LP
+The \fIssh\fR\& application uses the applications \fIpublic_key\fR\& and \fIcrypto\fR\& to handle public keys and encryption\&. Hence, these applications must be loaded for the \fIssh\fR\& application to work\&. In an embedded environment this means that they must be started with \fIapplication:start/[1,2]\fR\& before the \fIssh\fR\& application is started\&.
+.SH "CONFIGURATION"
+
+.LP
+The \fIssh\fR\& application does not have an application- specific configuration file, as described in \fBapplication(3)\fR\&\&. However, by default it use the following configuration files from OpenSSH:
+.RS 2
+.TP 2
+*
+\fIknown_hosts\fR\&
+.LP
+.TP 2
+*
+\fIauthorized_keys\fR\&
+.LP
+.TP 2
+*
+\fIauthorized_keys2\fR\&
+.LP
+.TP 2
+*
+\fIid_dsa\fR\&
+.LP
+.TP 2
+*
+\fIid_rsa\fR\&
+.LP
+.TP 2
+*
+\fIssh_host_dsa_key\fR\&
+.LP
+.TP 2
+*
+\fIssh_host_rsa_key\fR\&
+.LP
+.RE
+
+.LP
+By default, \fIssh\fR\& looks for \fIid_dsa\fR\&, \fIid_rsa\fR\&, \fIknown_hosts\fR\&, and \fIauthorized_keys\fR\& in ~/\&.ssh, and for the host key files in \fI/etc/ssh\fR\&\&. These locations can be changed by the options \fIuser_dir\fR\& and \fIsystem_dir\fR\&\&.
+.LP
+Public key handling can also be customized through a callback module that implements the behaviors \fBssh_client_key_api\fR\& and \fBssh_server_key_api\fR\&\&.
+.SH "PUBLIC KEYS"
+
+.LP
+\fIid_dsa\fR\& and \fIid_rsa\fR\& are the users private key files\&. Notice that the public key is part of the private key so the \fIssh\fR\& application does not use the \fIid_<*>\&.pub\fR\& files\&. These are for the user\&'s convenience when it is needed to convey the user\&'s public key\&.
+.SH "KNOWN HOSTS"
+
+.LP
+The \fIknown_hosts\fR\& file contains a list of approved servers and their public keys\&. Once a server is listed, it can be verified without user interaction\&.
+.SH "AUTHORIZED KEYS"
+
+.LP
+The \fIauthorized_key\fR\& file keeps track of the user\&'s authorized public keys\&. The most common use of this file is to let users log in without entering their password, which is supported by the Erlang \fIssh\fR\& daemon\&.
+.SH "HOST KEYS"
+
+.LP
+RSA and DSA host keys are supported and are expected to be found in files named \fIssh_host_rsa_key\fR\& and \fIssh_host_dsa_key\fR\&\&.
+.SH "ERROR LOGGER AND EVENT HANDLERS"
+
+.LP
+The \fIssh\fR\& application uses the default \fBOTP error logger\fR\& to log unexpected errors or print information about special events\&.
+.SH "SEE ALSO"
+
+.LP
+\fBapplication(3)\fR\&

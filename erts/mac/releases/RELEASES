@@ -1,0 +1,5 @@
+[{release,"Erlang/OTP","18","7.0.3",
+          [{kernel,"4.0","/usr/local/Cellar/erlang/18.0.3/lib/erlang/lib/kernel-4.0"},
+           {stdlib,"2.5","/usr/local/Cellar/erlang/18.0.3/lib/erlang/lib/stdlib-2.5"},
+           {sasl,"2.5","/usr/local/Cellar/erlang/18.0.3/lib/erlang/lib/sasl-2.5"}],
+          permanent}].

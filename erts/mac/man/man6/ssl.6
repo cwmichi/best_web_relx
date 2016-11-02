@@ -1,0 +1,47 @@
+.TH ssl 7 "ssl 7.0" "Ericsson AB" "Erlang Application Definition"
+.SH NAME
+ssl \- The ssl application provides secure communication over
+  sockets.
+.SH DESCRIPTION
+.SH "DEPENDENCIES"
+
+.LP
+The SSL application uses the \fIpublic_key\fR\& and Crypto application to handle public keys and encryption, hence these applications must be loaded for the SSL application to work\&. In an embedded environment this means they must be started with \fIapplication:start/[1,2]\fR\& before the SSL application is started\&.
+.SH "CONFIGURATION"
+
+.LP
+The application environment configuration parameters in this section are defined for the SSL application\&. For more information about configuration parameters, see the \fBapplication(3)\fR\& manual page in Kernel\&.
+.LP
+The environment parameters can be set on the command line, for example:
+.LP
+\fIerl -ssl protocol_version "[\&'tlsv1\&.2\&', \&'tlsv1\&.1\&']"\fR\&
+.RS 2
+.TP 2
+.B
+\fIprotocol_version = <seealso marker="kernel:error_logger">ssl:protocol()</seealso> <optional>\fR\&\&.:
+Protocol supported by started clients and servers\&. If this option is not set, it defaults to all protocols currently supported by the SSL application\&. This option can be overridden by the version option to \fIssl:connect/[2,3]\fR\& and \fIssl:listen/2\fR\&\&.
+.TP 2
+.B
+\fIsession_lifetime = integer() <optional>\fR\&:
+Lifetime of the session data in seconds\&.
+.TP 2
+.B
+\fIsession_cb = atom() <optional>\fR\&:
+Name of the session cache callback module that implements the \fIssl_session_cache_api\fR\& behavior\&. Defaults to \fIssl_session_cache\&.erl\fR\&\&.
+.TP 2
+.B
+\fIsession_cb_init_args = proplist:proplist() <optional>\fR\&:
+List of extra user-defined arguments to the \fIinit\fR\& function in the session cache callback module\&. Defaults to \fI[]\fR\&\&.
+.TP 2
+.B
+\fIssl_pem_cache_clean = integer() <optional>\fR\&:
+Number of milliseconds between PEM cache validations\&.\fBssl:clear_pem_cache/0\fR\&
+.RE
+.SH "ERROR LOGGER AND EVENT HANDLERS"
+
+.LP
+The SSL application uses the default \fBOTP error logger\fR\& to log unexpected errors and TLS alerts\&. The logging of TLS alerts may be turned off with the \fIlog_alert\fR\& option\&.
+.SH "SEE ALSO"
+
+.LP
+\fBapplication(3)\fR\&
